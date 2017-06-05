@@ -12,6 +12,11 @@ type MainController struct {
 	beego.Controller
 }
 
+type user struct {
+	Id       int         `form:"-"`
+	keywords interface{} `form:"keywords"`
+}
+
 type post struct {
 	id        int
 	titre     string
@@ -58,12 +63,18 @@ func (b *MainController) Index() {
 
 	query := "select * from articles order by 1 desc limit 3"
 	sqlconnect(index, query)
+	// u := user{}
+	// if err := b.ParseForm(&u); err != nil {
+	// }
+	keywords := b.Input().Get("contexts")
 	b.Data["Mapped"] = index
 	b.Data["ID"] = []string{"id"}
 	b.Data["Title"] = []string{"titre"}
 	b.Data["Subtitle"] = []string{"soustitre"}
 	b.Data["Name"] = []string{"auteur"}
 	b.Data["Date"] = []string{"date"}
+	b.Data["Text"] = keywords
+	b.Data["addr"] = b.Ctx.Request.RemoteAddr
 	b.TplName = "default/index.tpl"
 }
 
@@ -81,7 +92,6 @@ func (a *MainController) Articles() {
 
 	// query := "select * from articles order by 1 desc limit 3"
 	sqlconnect(articles, query)
-
 	// a.Ctx.Request.PostForm
 	a.Data["Mapped"] = articles
 	a.Data["ID"] = []string{"id"}
@@ -89,7 +99,7 @@ func (a *MainController) Articles() {
 	a.Data["Suatitle"] = []string{"soustitre"}
 	a.Data["Name"] = []string{"auteur"}
 	a.Data["Date"] = []string{"date"}
-	// a.Data["Currenturl"] = query
+	// a.Data["Currenturl"] = querya
 	switch {
 	case pageint == 1:
 		a.Data["Previous"] = pageint
@@ -98,5 +108,11 @@ func (a *MainController) Articles() {
 		a.Data["Previous"] = pageint - 1
 		a.Data["Next"] = pageint + 1
 	}
+
 	a.TplName = "default/article.tpl"
+}
+
+func (this *MainController) Search() {
+	this.Data["keywords"] = this.Ctx.Input.Param(":keywords")
+	this.TplName = "default/article.tpl"
 }
