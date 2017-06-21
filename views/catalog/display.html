@@ -1,0 +1,12 @@
+<form class="form-horizontal" role="form" enctype="multipart/form-data">
+    <h4 class = "text-center">分类管理</h4>
+    <hr>
+    {{range .Catalogs}}
+		<div class="post-preview text-center">
+			<a href="{{.Id}}/edit">
+					{{.DisplayName}}
+			</a>
+		</div>
+	<hr>
+	{{end}}
+</form>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>后台管理</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+        <div class="navbar-header navbar-left">
+            <a class="navbar-brand" href="/zfwadmin/">后台管理</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/zfwadmin/catalog/add">添加分类</a></li>
+                <li><a href="/zfwadmin/catalog">分类编辑</a></li>
+                <li><a href="/zfwadmin/blog/">博文编辑</a></li>
+                <li><a href="/logout">退出</a></li>
+            </ul>
+        </div>
+        </div>
+    </nav>
+    {{.LayoutContent}}
+</body>
+</html>

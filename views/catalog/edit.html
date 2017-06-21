@@ -1,0 +1,29 @@
+{{range .Catalog}}
+<form class="form-horizontal" role="form" method="post" action="/zfwadmin/catalog/{{.Id}}/edit" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">分类名称：</label>
+        <div class="col-sm-3">
+            <input class="form-control" id="DisplayName" name="DisplayName" value="{{.DisplayName}}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="ident" class="col-sm-2 control-label">英文标识：</label>
+        <div class="col-sm-3">
+            <input class="form-control" id="Name" name="Name" value = "{{.Name}}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="display_order" class="col-sm-2 control-label">排序权值：</label>
+        <div class="col-sm-1">
+            <input class="form-control" id="DisplayOrder" name="DisplayOrder" value = "{{.DisplayOrder}}">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">修改</button>
+            <a href = "/zfwadmin/catalog/{{.Id}}/del"><input type="button" class="btn btn-primary" value = "删除"></input></a>
+
+        </div>
+    </div>
+</form>
+{{end}}

@@ -1,80 +1,37 @@
 package controllers
 
 import (
-	"database/sql"
-	. "fmt"
+	"fmt"
 	"github.com/astaxie/beego"
-	_ "github.com/lib/pq"
+	"sitepointgoapp/models/blog"
 	"strconv"
+	"strings"
 )
 
 type MainController struct {
 	beego.Controller
 }
 
-type user struct {
-	Id       int         `form:"-"`
-	keywords interface{} `form:"keywords"`
-}
-
-type post struct {
-	id        int
-	titre     string
-	soustitre string
-	auteur    string
-	contenu   string
-	date      string
-	href      string
-}
-
-func sqlconnect(a map[int]map[string]string, query string) {
-	p := new(post)
-	i := 0
-
-	db, err := sql.Open("postgres", "user=postgres password=1924zheng. port=8888 dbname=Temp sslmode=disable")
-	rows, err := db.Query(query)
-	if err != nil {
-		Println(err.Error())
-		return
-	}
-
-	defer rows.Close()
-
-	for rows.Next() {
-		i += 1
-		err := rows.Scan(&p.id, &p.titre, &p.soustitre, &p.auteur, &p.contenu, &p.date)
-		if err != nil {
-			Println(err)
-			return
-		}
-
-		a[i] = make(map[string]string)
-		a[i]["id"] = strconv.Itoa(p.id)
-		a[i]["titre"] = p.titre
-		a[i]["soustitre"] = p.soustitre
-		a[i]["auteur"] = p.auteur
-		a[i]["contenu"] = p.contenu
-		a[i]["date"] = p.date
+func urltranslate(inputs string) {
+	m1 := map[string]string{"%2F": "/", "%20": " ", "+": "", "%3F": "?", "%25": "%", "%23": "#", "%26": "&", "%3D": "="}
+	// Println(a.keys)
+	for k, v := range m1 {
+		inputs = (strings.Replace(inputs, k, v, -1))
 	}
 }
 
-func (b *MainController) Index() {
+func (this *MainController) Index() {
 	index := make(map[int]map[string]string)
 
-	query := "select * from articles order by 1 desc limit 3"
-	sqlconnect(index, query)
-	// u := user{}
-	// if err := b.ParseForm(&u); err != nil {
-	// }
 	keywords := b.Input().Get("contexts")
-	b.Data["Mapped"] = index
+	b.Data["BlogSummary"] = blog.
 	b.Data["ID"] = []string{"id"}
 	b.Data["Title"] = []string{"titre"}
 	b.Data["Subtitle"] = []string{"soustitre"}
 	b.Data["Name"] = []string{"auteur"}
 	b.Data["Date"] = []string{"date"}
 	b.Data["Text"] = keywords
-	b.Data["addr"] = b.Ctx.Request.RemoteAddr
+	// b.Data["addr"] = b.Ctx.Request.RemoteAddr
 	b.TplName = "default/index.tpl"
 }
 
@@ -112,7 +69,24 @@ func (a *MainController) Articles() {
 	a.TplName = "default/article.tpl"
 }
 
-func (this *MainController) Search() {
-	this.Data["keywords"] = this.Ctx.Input.Param(":keywords")
-	this.TplName = "default/article.tpl"
+func (this *MainController) Contexts() {
+	// tablename = "articles"
+	contexts := make(map[int]map[string]string)
+	articleid := this.Ctx.Input.Param(":id")
+	query := "select * from articles where articleid = " + articleid
+
+	sqlconnect(contexts, query)
+	this.Data["Mapped"] = contexts
+	this.Data["Constr"] = []string{"contenu"}
+	this.Data["Queries"] = query
+
+	this.TplName = "default/contexts.tpl"
+}
+
+func (t *MainController) Admin() {
+	// tablename = "articles"
+	keywords := t.Input().Get("Content")
+	urltranslate(keywords)
+	t.Data["test"] = keywords
+	t.TplName = "default/admin.tpl"
 }

@@ -10,17 +10,17 @@
     <title>Clean Blog - Start Bootstrap Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Additional fonts for this theme -->
-    <link href="static/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
     <!-- Custom styles for this theme -->
-    <link href="static/css/clean-blog.css" rel="stylesheet">
+    <link href="../static/css/clean-blog.css" rel="stylesheet">
 	<!-- Animate.css-->
-	<link href="static/css/animate.css" rel="stylesheet"> 
+	<link href="../static/css/animate.css" rel="stylesheet"> 
 
     <!-- Temporary navbar container fix until Bootstrap 4 is patched -->
     <style>
@@ -67,54 +67,36 @@
 
 
     <!-- Page Header -->
-    <header class="intro-header" style="background-image: url('static/img/home-bg.jpg')">
+    <header class="intro-header" style="background-image: url('../static/img/about-bg.jpg')">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 offset-lg-2 col-md-12 offset-md-1">
-                    <div class="site-heading">
-                       	 <div class="input-group">
-							<input type="text" placeholder = "查找相关文章.."class="form-control input-lg">
-							<button class="btn btn-primary" type="button">搜索</button>
-						</div>
+                <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+                    <div class="page-heading">
+                        <h2>律师简介</h2>
                     </div>
-				</div>                
+                </div>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <div class="container">
+	<div class="container">
         <div class="row">
+		 {{range $k, $v := .Mapped}}
             <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-                {{range $k, $v := .Mapped}}
-				<div class="post-preview">
-                    <a href="articles{{range $.ID}}{{index $v .}}{{end}}">
-                        <h2 class="post-title">
-                            {{range $.Title}}
-								{{index $v .}}
-							{{end}}
-                        </h2>
-						<h3 class="post-subtitle">
-                            {{range $.Subtitle}}
-								{{index $v .}}
-							{{end}}
-                        </h3>
-                    </a>
-                 <p class="post-meta">Posted by {{range $.Name}}{{index $v .}}{{end}}</a> on {{range $.Date}}{{index $v .}}{{end}}</p>
-                </div>
-                <hr>
-				{{end}}
-
-                <!-- Pager -->
-                <div class="clearfix">
-                    <a class="btn btn-secondary float-right" href="../articles.html">Older Posts &rarr;</a>
-                </div>
+                <p class="text-left"> 
+				{{range $.Constr}}
+					{{index $v .}}
+				{{end}}</p>
             </div>
+		{{end}}
         </div>
     </div>
-
-    <hr>
-
+	
+	<div class="clearfix col-lg-8 offset-lg-1 col-md-10 offset-md-1">
+                    <a class="btn btn-secondary float-right" href="../index">更多内容 &rarr;</a>
+	</div>
+	
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -123,17 +105,17 @@
                     <ul class="list-inline text-center">
                         <li class="list-inline-item">
 							<a class = "wechat" target="_blank" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI0MzE3MzM3Nw==&scene=110#wechat_redirect">
-								<img border="0" src="static/img/wechat.png" title="点击关注微信公众号"/>
+								<img border="0" src="../static/img/wechat.png" title="点击这里给我发消息"/>
 							</a>
                         </li>
 						<li class="list-inline-item">
 							<a class target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=544673992&site=qq&menu=yes">
-								<img border="0" src="static/img/QQ.png" title="点击给我发消息"/>
+								<img border="0" src="../static/img/QQ.png" alt="点击这里给我发消息" title="点击这里给我发消息"/>
 							</a>
                         </li>
 						<li class="list-inline-item">
 							<a class = "mail" target="_blank" href="mailto:544673992@qq.com">
-								<img border="0" src="static/img/email.png" title="点击发送邮件"/>
+								<img border="0" src="../static/img/email.png" alt="点击这里给我发消息" title="点击这里给我发消息"/>
 							</a>
                         </li>
                             </a>
@@ -144,10 +126,18 @@
             </div>
         </div>
     </footer>
-	
-	<!--a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2::53" alt="联系我" title="联系我"/></a> -->
 
+    <!-- jQuery Version 3.1.1 -->
+    <script src="lib/jquery/jquery.js"></script>
 
+    <!-- Tether -->
+    <script src="lib/tether/tether.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
 
 </body>
 

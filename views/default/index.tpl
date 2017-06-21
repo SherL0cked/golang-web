@@ -65,30 +65,31 @@
         </div>
     </nav>
 
-	
-	 <header class="intro-header" style="background-image: url('static/img/home-bg.jpg')">
+
+    <!-- Page Header -->
+    <header class="intro-header" style="background-image: url('static/img/home-bg.jpg')">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+                <div class="col-lg-8 offset-lg-2 col-md-12 offset-md-1">
                     <div class="site-heading">
-                        <h1>{{.Currenturl}}</h1>
-                        <span class="subheading" hidden>A Blog Theme by Start Bootstrap</span>
+					 <form id="user" class="input-group">
+							<input name="contexts" class="form-control input-lg input-group" type="text" placeholder = "查找相关文章.." />
+							<input type="submit" value="查找" class="btn btn-primary"/>
+					</form>
                     </div>
-                </div>
+				</div>                
             </div>
         </div>
     </header>
-	
-	<div class="container">
+
+    <!-- Main Content -->
+    <div class="container">
         <div class="row">
             <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
                 {{range $k, $v := .Mapped}}
 				<div class="post-preview">
-                    <a href="articles/articles{{range $.ID}}{{index $v .}}{{end}}">
+                    <a href="articles{{range $.ID}}{{index $v .}}{{end}}">
                         <h2 class="post-title">
-						
-						
-						
                             {{range $.Title}}
 								{{index $v .}}
 							{{end}}
@@ -103,18 +104,60 @@
                 </div>
                 <hr>
 				{{end}}
-                
+				
+				<div class="post-preview">
+                    <a href="articles">
+                        <h2 class="post-title">
+							{{.addr}}
+                        </h2>
+                    </a>
+                </div>
+
                 <!-- Pager -->
                 <div class="clearfix">
-                    <a class="btn btn-secondary float-right" href="../articles&page{{.Next}}">下一页 &rarr;</a>
-					<a class="btn btn-secondary float-left" href="../articles&page{{.Previous}}">&larr; 上一页</a>
+					<a class="btn btn-secondary float-right" href="../articles&page1">Older Posts &rarr;</a>
                 </div>
             </div>
         </div>
     </div>
 
     <hr>
-		
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item">
+							<a class = "wechat" target="_blank" href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI0MzE3MzM3Nw==&scene=110#wechat_redirect">
+								<img border="0" src="static/img/wechat.png" title="点击关注微信公众号"/>
+							</a>
+                        </li>
+						<li class="list-inline-item">
+							<a class target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=544673992&site=qq&menu=yes">
+								<img border="0" src="static/img/QQ.png" title="点击给我发消息"/>
+							</a>
+                        </li>
+						<li class="list-inline-item">
+							<a class = "mail" target="_blank" href="mailto:544673992@qq.com">
+								<img border="0" src="static/img/email.png" title="点击发送邮件"/>
+							</a>
+                        </li>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">&copy; zhaofawu. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+	
+	<!--a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2::53" alt="联系我" title="联系我"/></a> -->
+
+
+
 </body>
 
 </html>
+
